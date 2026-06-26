@@ -591,7 +591,7 @@ const LIVE = [
     stack: ["Python", "SQLite", "Groq", "BS4"],
     icon: Brain, gradient: "from-neon-magenta/30 to-neon-violet/20",
     live: "https://mnemosphere.onrender.com",
-    repo: "https://github.com/akshayagurajala",
+    repo: "https://github.com/AkshayaGurajala/MnemoSphere.git",
   },
   {
     t: "ASH Self Drive Cars", tag: "Full Stack",
@@ -599,7 +599,7 @@ const LIVE = [
     stack: ["React", "TS", "Supabase", "Vercel"],
     icon: Car, gradient: "from-neon-violet/30 to-neon-cyan/20",
     live: "https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/",
-    repo: "https://github.com/akshayagurajala",
+    repo: "https://github.com/AkshayaGurajala/ash-self-drive-cars.git",
   },
 ];
 export function LiveProjects() {
