@@ -675,9 +675,9 @@ const PROJECTS: Project[] = [
         "Optimizing image-heavy listings for mobile performance",
       ],
       screenshots: [
-        { label: "Landing", gradient: "from-neon-violet/40 to-neon-cyan/20" },
-        { label: "Fleet", gradient: "from-neon-cyan/40 to-neon-violet/20" },
-        { label: "Booking Flow", gradient: "from-neon-magenta/40 to-neon-violet/20" },
+        { label: "Landing", gradient: "from-neon-violet/40 to-neon-cyan/20", img: "https://image.thum.io/get/width/900/crop/700/noanimate/https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/" },
+        { label: "Fleet", gradient: "from-neon-cyan/40 to-neon-violet/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/ASH-Self-Drive-Cars" },
+        { label: "Booking Flow", gradient: "from-neon-magenta/40 to-neon-violet/20", img: "https://image.thum.io/get/width/900/crop/700/wait/3/noanimate/https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/" },
       ],
       future: [
         "Razorpay / Stripe integration for online payments",
