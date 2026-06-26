@@ -759,9 +759,9 @@ const PROJECTS: Project[] = [
         "Running performant inference locally on modest hardware",
       ],
       screenshots: [
-        { label: "Paste Trace", gradient: "from-neon-lime/40 to-neon-cyan/20" },
-        { label: "Explanation", gradient: "from-neon-cyan/40 to-neon-lime/20" },
-        { label: "Suggested Fix", gradient: "from-neon-magenta/40 to-neon-lime/20" },
+        { label: "Repository", gradient: "from-neon-lime/40 to-neon-cyan/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/DevError-Decoder" },
+        { label: "Profile", gradient: "from-neon-cyan/40 to-neon-lime/20", img: "https://opengraph.githubassets.com/1/akshayagurajala" },
+        { label: "Source", gradient: "from-neon-magenta/40 to-neon-lime/20", img: "https://opengraph.githubassets.com/2/akshayagurajala/DevError-Decoder" },
       ],
       future: [
         "IDE plugins for VS Code and JetBrains",
