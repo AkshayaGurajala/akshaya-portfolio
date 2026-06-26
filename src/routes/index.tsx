@@ -584,7 +584,6 @@ type CaseStudy = {
   tech: string[];
   architecture: string[];
   challenges: string[];
-  screenshots: { label: string; gradient: string; img: string }[];
   future: string[];
 };
 type Project = {
