@@ -7,14 +7,15 @@ import {
   Send, Rocket, BookOpen, Building2, FileText, ExternalLink, X,
   Target, ListChecks, Boxes, Workflow, AlertTriangle, TrendingUp,
 } from "lucide-react";
-import avatarAsset from "@/assets/akshaya.jpg.asset.json";
-import avatarAsset2 from "@/assets/akshaya2.jpg.asset.json";
+import avatarUrl from "@/assets/akshaya.jpg";
+import avatar2Url from "@/assets/akshaya2.jpg";
 import {
   ParticleNetwork, BootLoader, TerminalSection, ResearchInterests, TechOrbit,
   LiveProjects, ResearchTimeline, Publications, CurrentlyLearning, AIAssistant,
 } from "@/components/portfolio-extras";
 
-const AVATAR = avatarAsset.url;
+const AVATAR = avatarUrl;
+const AVATAR2 = avatar2Url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -380,7 +381,7 @@ function About() {
               className="relative aspect-square w-full overflow-hidden rounded-3xl glass-strong p-3">
               <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-neon-magenta/40 via-transparent to-neon-cyan/40 opacity-50 blur" />
               <div className="relative h-full w-full overflow-hidden rounded-[1.3rem]">
-                <img src={avatarAsset2.url} alt="Akshaya Gurajala" width={800} height={800} loading="lazy" className="h-full w-full object-cover object-top" />
+                <img src={AVATAR2} alt="Akshaya Gurajala" width={800} height={800} loading="lazy" className="h-full w-full object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-2 font-mono text-[10px]" style={{ transform: "translateZ(30px)" }}>
                   {[
@@ -1202,7 +1203,7 @@ function Portfolio() {
         <Hero />
         <TerminalSection />
         <About />
-        <TechOrbit avatarUrl={avatarAsset2.url} />
+        <TechOrbit avatarUrl={AVATAR2} />
         <ResearchInterests />
         <Education />
         <ResearchTimeline />
