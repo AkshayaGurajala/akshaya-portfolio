@@ -717,9 +717,9 @@ const PROJECTS: Project[] = [
         "Avoiding feedback loops that keep recommending popular courses",
       ],
       screenshots: [
-        { label: "Input Form", gradient: "from-neon-cyan/40 to-neon-lime/20" },
-        { label: "Recommendations", gradient: "from-neon-lime/40 to-neon-cyan/20" },
-        { label: "Model Insights", gradient: "from-neon-cyan/40 to-neon-magenta/20" },
+        { label: "Repository", gradient: "from-neon-cyan/40 to-neon-lime/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/Elective-Course-Recommendation-System" },
+        { label: "Profile", gradient: "from-neon-lime/40 to-neon-cyan/20", img: "https://opengraph.githubassets.com/1/akshayagurajala" },
+        { label: "Model Insights", gradient: "from-neon-cyan/40 to-neon-magenta/20", img: "https://opengraph.githubassets.com/2/akshayagurajala/Elective-Course-Recommendation-System" },
       ],
       future: [
         "Graph neural network over course-prerequisite graph",
