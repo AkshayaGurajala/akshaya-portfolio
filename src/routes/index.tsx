@@ -4,7 +4,8 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePres
 import {
   Code2, Brain, Cpu, Wrench, Sparkles, Github, Linkedin, Mail, MapPin, Phone,
   Award, GraduationCap, Trophy, ArrowUpRight, Database, Eye, Layers,
-  Send, Rocket, BookOpen, Building2, FileText,
+  Send, Rocket, BookOpen, Building2, FileText, ExternalLink, X,
+  Target, ListChecks, Boxes, Workflow, AlertTriangle, ImageIcon, TrendingUp,
 } from "lucide-react";
 import avatarAsset from "@/assets/akshaya.jpg.asset.json";
 import avatarAsset2 from "@/assets/akshaya2.jpg.asset.json";
