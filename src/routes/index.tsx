@@ -795,7 +795,17 @@ function GlowButton({
   );
   if (href) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${styles}`}>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => {
+          // Fallback for sandboxed previews where target=_blank may be blocked
+          const w = window.open(href, "_blank", "noopener,noreferrer");
+          if (w) e.preventDefault();
+        }}
+        className={`${base} ${styles}`}
+      >
         {inner}
       </a>
     );
