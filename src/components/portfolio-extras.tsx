@@ -127,133 +127,361 @@ export function BootLoader({ done }: { done: boolean }) {
   );
 }
 
-/* ---------------- Terminal Section ---------------- */
-const TERM = [
-  { cmd: "whoami", out: "Akshaya Gurajala" },
-  { cmd: "role", out: "AI Research Intern" },
-  { cmd: "education", out: "B.Tech Computer Science Engineering" },
-  { cmd: "specialization", out: "Artificial Intelligence and Machine Learning" },
-  { cmd: "current_focus", out: "Computer Vision and Deep Learning" },
-  { cmd: "technologies", out: "Python, PyTorch, OpenCV, Flask, React" },
-  { cmd: "research", out: "Vision Transformers and Autonomous Perception" },
-  { cmd: "status", out: "Available for opportunities" },
+/* ---------------- AI Core Interface ---------------- */
+const BOOT_SEQ = [
+  { t: "INITIALIZING AI CORE", d: 700 },
+  { t: "LOADING USER PROFILE", d: 600 },
+  { t: "ANALYZING RESEARCH DATA", d: 700 },
+  { t: "CONNECTING NEURAL NETWORK", d: 700 },
+  { t: "ACCESS GRANTED", d: 500 },
 ];
-function useTyped(text: string, start: boolean, speed = 18) {
-  const [t, setT] = useState("");
+
+const SKILLS_MATRIX = [
+  { n: "PYTHON", v: 95 },
+  { n: "PYTORCH", v: 90 },
+  { n: "OPENCV", v: 85 },
+  { n: "REACT", v: 80 },
+  { n: "FLASK", v: 85 },
+];
+
+const SYS_STATUS = [
+  { k: "PROJECTS", v: "ONLINE" },
+  { k: "RESEARCH", v: "ACTIVE" },
+  { k: "LEARNING", v: "RUNNING" },
+  { k: "INNOVATION", v: "ENABLED" },
+];
+
+const INTERESTS_LIST = ["AUTONOMOUS SYSTEMS", "DEEP LEARNING", "EDGE AI"];
+
+type TabKey = "PROFILE" | "SKILLS" | "PROJECTS" | "RESEARCH";
+
+function useTypewriter(text: string, start: boolean, speed = 22) {
+  const [out, setOut] = useState("");
   useEffect(() => {
-    if (!start) { setT(""); return; }
-    setT(""); let i = 0;
+    if (!start) { setOut(""); return; }
+    setOut(""); let i = 0;
     const id = setInterval(() => {
-      i++; setT(text.slice(0, i));
+      i++; setOut(text.slice(0, i));
       if (i >= text.length) clearInterval(id);
     }, speed);
     return () => clearInterval(id);
   }, [text, start, speed]);
-  return t;
+  return out;
 }
-function TermLine({ cmd, out, active, onDone }: { cmd: string; out: string; active: boolean; onDone: () => void }) {
-  const c = useTyped(cmd, active, 32);
-  const showOut = c === cmd;
-  const o = useTyped(out, showOut, 12);
-  useEffect(() => {
-    if (showOut && o === out) {
-      const t = setTimeout(onDone, 480);
-      return () => clearTimeout(t);
-    }
-  }, [showOut, o, out, onDone]);
+
+function ScanLines() {
   return (
-    <div className="mb-4">
-      <div className="flex items-center gap-2 font-mono text-[13px] sm:text-sm">
-        <span className="text-neon-lime">akshaya@ai-lab</span>
-        <span className="text-muted-foreground">:</span>
-        <span className="text-neon-cyan">~/portfolio</span>
-        <span className="text-neon-magenta">$</span>
-        <span className="text-foreground">{c}</span>
-        {active && c.length < cmd.length && (
-          <span className="inline-block h-4 w-2 animate-blink bg-neon-cyan align-middle shadow-[0_0_8px_oklch(0.85_0.18_200)]" />
-        )}
+    <>
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:repeating-linear-gradient(to_bottom,transparent_0,transparent_2px,oklch(0.85_0.18_200)_3px,transparent_4px)]" />
+      <motion.div aria-hidden
+        initial={{ y: "-10%" }} animate={{ y: "110%" }}
+        transition={{ duration: 3.4, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute inset-x-0 h-24 bg-[linear-gradient(to_bottom,transparent,oklch(0.85_0.18_200/0.18),transparent)] blur-sm" />
+    </>
+  );
+}
+
+function HoloPanel({ title, children, delay = 0 }: { title: string; children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.55, delay, ease: [0.2, 0.8, 0.2, 1] }}
+      className="relative rounded-xl border border-neon-cyan/25 bg-[linear-gradient(135deg,oklch(0.15_0.06_280/0.7),oklch(0.13_0.05_260/0.5))] p-5 backdrop-blur-xl shadow-[0_0_40px_-15px_oklch(0.85_0.18_200/0.6),inset_0_1px_0_oklch(1_0_0/0.08)]">
+      {/* corner brackets */}
+      <span className="absolute -top-px -left-px h-3 w-3 border-t-2 border-l-2 border-neon-cyan" />
+      <span className="absolute -top-px -right-px h-3 w-3 border-t-2 border-r-2 border-neon-magenta" />
+      <span className="absolute -bottom-px -left-px h-3 w-3 border-b-2 border-l-2 border-neon-magenta" />
+      <span className="absolute -bottom-px -right-px h-3 w-3 border-b-2 border-r-2 border-neon-cyan" />
+      <div className="mb-3 flex items-center justify-between font-mono text-[10px] tracking-[0.25em] text-neon-cyan/80">
+        <span>▸ {title}</span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-neon-lime shadow-[0_0_8px_oklch(0.88_0.22_140)] animate-pulse" />
+          SYNC
+        </span>
       </div>
-      {showOut && (
-        <div className="ml-3 mt-1.5 flex gap-3 border-l-2 border-neon-magenta/50 pl-4 font-mono text-[13px] sm:text-sm">
-          <span className="text-neon-magenta">→</span>
-          <span className="text-foreground/90">
-            {o}
-            {o.length < out.length && (
-              <span className="ml-0.5 inline-block h-3 w-1.5 animate-blink bg-neon-magenta align-middle" />
-            )}
-          </span>
-        </div>
-      )}
+      <div className="font-mono text-[13px] text-foreground/90">{children}</div>
+    </motion.div>
+  );
+}
+
+function SkillBar({ name, value, start, delay }: { name: string; value: number; start: boolean; delay: number }) {
+  return (
+    <div className="mb-2.5 last:mb-0">
+      <div className="mb-1 flex items-center justify-between text-[11px] tracking-widest">
+        <span className="text-foreground/80">{name}</span>
+        <motion.span
+          initial={{ opacity: 0 }} animate={start ? { opacity: 1 } : {}}
+          transition={{ delay: delay + 0.6 }}
+          className="text-neon-cyan">{value}%</motion.span>
+      </div>
+      <div className="relative h-1.5 overflow-hidden rounded-full bg-white/5">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={start ? { width: `${value}%` } : { width: 0 }}
+          transition={{ duration: 1.1, delay, ease: [0.2, 0.8, 0.2, 1] }}
+          className="h-full rounded-full bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-magenta shadow-[0_0_10px_oklch(0.85_0.18_200/0.8)]"
+        />
+      </div>
     </div>
   );
 }
+
+function TabContent({ tab, visible }: { tab: TabKey; visible: boolean }) {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={tab}
+        initial={{ opacity: 0, x: 18 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -18 }}
+        transition={{ duration: 0.35 }}
+        className="grid gap-4 sm:grid-cols-2"
+      >
+        {tab === "PROFILE" && (
+          <>
+            <HoloPanel title="USER PROFILE">
+              <div className="space-y-1.5">
+                <div><span className="text-neon-magenta">USER</span> ▸ AKSHAYA GURAJALA</div>
+                <div><span className="text-neon-magenta">STATUS</span> ▸ <span className="text-neon-lime">● ACTIVE</span></div>
+                <div><span className="text-neon-magenta">ROLE</span> ▸ AI RESEARCH INTERN</div>
+                <div><span className="text-neon-magenta">LOC</span> ▸ ANDHRA PRADESH, IN</div>
+              </div>
+            </HoloPanel>
+            <HoloPanel title="SYSTEM STATUS" delay={0.1}>
+              {SYS_STATUS.map((s) => (
+                <div key={s.k} className="flex items-center justify-between border-b border-white/5 py-1 last:border-0">
+                  <span className="text-foreground/80">{s.k}</span>
+                  <span className="flex items-center gap-1.5 text-neon-lime">
+                    <span className="h-1.5 w-1.5 rounded-full bg-neon-lime shadow-[0_0_8px_oklch(0.88_0.22_140)] animate-pulse" />
+                    {s.v}
+                  </span>
+                </div>
+              ))}
+            </HoloPanel>
+          </>
+        )}
+        {tab === "SKILLS" && (
+          <HoloPanel title="TECHNOLOGY MATRIX">
+            {SKILLS_MATRIX.map((s, i) => (
+              <SkillBar key={s.n} name={s.n} value={s.v} start={visible} delay={0.05 + i * 0.12} />
+            ))}
+          </HoloPanel>
+        )}
+        {tab === "PROJECTS" && (
+          <HoloPanel title="ACTIVE DEPLOYMENTS">
+            <div className="space-y-2">
+              {[
+                { n: "MNEMOSPHERE", t: "AI MEMORY ASSISTANT", s: "ONLINE" },
+                { n: "ASH SELF DRIVE", t: "RENTAL PLATFORM", s: "ONLINE" },
+                { n: "ELECTIVE RECSYS", t: "ML RECOMMENDER", s: "ARCHIVED" },
+                { n: "DEVERROR DECODER", t: "AI DEBUGGER", s: "RESEARCH" },
+              ].map((p) => (
+                <div key={p.n} className="flex items-center justify-between border-b border-white/5 py-1.5 last:border-0">
+                  <div>
+                    <div className="text-foreground">{p.n}</div>
+                    <div className="text-[10px] text-muted-foreground tracking-widest">{p.t}</div>
+                  </div>
+                  <span className="text-[10px] text-neon-cyan">[{p.s}]</span>
+                </div>
+              ))}
+            </div>
+          </HoloPanel>
+        )}
+        {tab === "RESEARCH" && (
+          <>
+            <HoloPanel title="AI ANALYSIS">
+              <div className="space-y-2">
+                <div>
+                  <div className="text-[10px] tracking-widest text-neon-magenta">SPECIALIZATION</div>
+                  <div>COMPUTER VISION</div>
+                </div>
+                <div>
+                  <div className="text-[10px] tracking-widest text-neon-magenta">CURRENT RESEARCH</div>
+                  <div>VISION TRANSFORMERS</div>
+                </div>
+              </div>
+            </HoloPanel>
+            <HoloPanel title="INTERESTS VECTOR" delay={0.1}>
+              <div className="space-y-1.5">
+                {INTERESTS_LIST.map((x) => (
+                  <div key={x} className="flex items-center gap-2">
+                    <span className="text-neon-cyan">◆</span>
+                    <span>{x}</span>
+                  </div>
+                ))}
+              </div>
+            </HoloPanel>
+          </>
+        )}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export function TerminalSection() {
-  const [i, setI] = useState(0);
-  const [done, setDone] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const [start, setStart] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [bootStep, setBootStep] = useState(0);
+  const [bootDone, setBootDone] = useState(false);
+  const [tab, setTab] = useState<TabKey>("PROFILE");
+  const greeting = useTypewriter("AI SYSTEM READY", bootDone, 40);
+
   useEffect(() => {
     const el = ref.current; if (!el) return;
     const o = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting) { setStart(true); o.disconnect(); }
-    }), { threshold: 0.25 });
+      if (e.isIntersecting) { setVisible(true); o.disconnect(); }
+    }), { threshold: 0.2 });
     o.observe(el); return () => o.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!visible || bootDone) return;
+    if (bootStep >= BOOT_SEQ.length) { setBootDone(true); return; }
+    const id = setTimeout(() => setBootStep((s) => s + 1), BOOT_SEQ[bootStep].d);
+    return () => clearTimeout(id);
+  }, [visible, bootStep, bootDone]);
+
   return (
-    <section id="terminal" className="relative py-24" ref={ref}>
-      <div className="mx-auto max-w-4xl px-6">
+    <section id="ai-core" className="relative py-24" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="mx-auto mb-10 max-w-2xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            <span className="h-1 w-1 rounded-full bg-neon-lime animate-pulse" /> live shell
+          <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-neon-cyan animate-pulse shadow-[0_0_8px_oklch(0.85_0.18_200)]" />
+            interface · v2.6
           </div>
-          <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl">$ <span className="text-gradient">whoami</span></h2>
+          <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl">
+            <span className="text-gradient">AI Core</span> Interface
+          </h2>
+          <p className="mt-2 font-mono text-xs tracking-widest text-muted-foreground">
+            // JARVIS-CLASS OPERATING LAYER · NEURAL UPLINK ESTABLISHED
+          </p>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="relative overflow-hidden rounded-2xl glass-strong shadow-[var(--shadow-elevated)]">
-          {/* soft outer glow */}
-          <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-neon-cyan/30 via-neon-magenta/20 to-neon-violet/30 opacity-40 blur-xl" />
-          <div className="relative">
-            {/* titlebar */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent px-4 py-2.5 backdrop-blur">
-              <div className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-full bg-[#ff5f57] shadow-[0_0_8px_#ff5f57aa]" />
-                <span className="h-3 w-3 rounded-full bg-[#febc2e] shadow-[0_0_8px_#febc2eaa]" />
-                <span className="h-3 w-3 rounded-full bg-[#28c840] shadow-[0_0_8px_#28c840aa]" />
-              </div>
-              <div className="font-mono text-[11px] text-muted-foreground">akshaya@ai-lab — zsh — 96×30</div>
-              <div className="flex items-center gap-1.5 font-mono text-[10px] text-neon-lime">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-neon-lime opacity-75" />
-                  <span className="relative h-2 w-2 rounded-full bg-neon-lime" />
+          className="relative overflow-hidden rounded-2xl">
+          {/* holographic gradient frame */}
+          <div className="pointer-events-none absolute -inset-px rounded-2xl bg-[conic-gradient(from_0deg,oklch(0.85_0.18_200/0.6),oklch(0.65_0.25_290/0.5),oklch(0.7_0.28_330/0.6),oklch(0.85_0.18_200/0.6))] opacity-60 blur-[2px]" />
+          <div className="relative rounded-2xl glass-strong">
+            {/* animated grid bg */}
+            <div className="pointer-events-none absolute inset-0 grid-bg opacity-25 [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_85%)] animate-grid" />
+            <ScanLines />
+            {/* radial glow */}
+            <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-neon-violet/20 blur-3xl" />
+
+            {/* HUD bar */}
+            <div className="relative flex items-center justify-between border-b border-neon-cyan/20 px-5 py-3 font-mono text-[10px] tracking-[0.25em] text-neon-cyan/80">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-neon-cyan opacity-75" />
+                  <span className="relative h-2.5 w-2.5 rounded-full bg-neon-cyan shadow-[0_0_10px_oklch(0.85_0.18_200)]" />
                 </span>
-                live
+                AKSHAYA.OS
               </div>
+              <div className="hidden sm:block text-muted-foreground">CORE TEMP 36.7°C · UPTIME 24/7 · LINK 100%</div>
+              <div className="text-neon-magenta">● REC</div>
             </div>
-            {/* body */}
-            <div className="relative p-5 sm:p-7 min-h-[420px] bg-[radial-gradient(ellipse_at_top_left,oklch(0.18_0.08_290/0.4),transparent_70%)]">
-              <div className="mb-4 font-mono text-[11px] text-muted-foreground">
-                Last login: Fri Jun 26 2026 · zsh 5.9 · neural runtime ready
-              </div>
-              {start && TERM.slice(0, i + 1).map((t, k) => (
-                <TermLine key={t.cmd} cmd={t.cmd} out={t.out} active={k === i}
-                  onDone={() => {
-                    if (k === i) {
-                      if (i < TERM.length - 1) setI(i + 1);
-                      else setDone(true);
-                    }
-                  }} />
-              ))}
-              {done && (
-                <div className="mt-2 flex items-center gap-2 font-mono text-[13px] sm:text-sm">
-                  <span className="text-neon-lime">akshaya@ai-lab</span>
-                  <span className="text-muted-foreground">:</span>
-                  <span className="text-neon-cyan">~/portfolio</span>
-                  <span className="text-neon-magenta">$</span>
-                  <span className="inline-block h-4 w-2 animate-blink bg-neon-cyan shadow-[0_0_8px_oklch(0.85_0.18_200)]" />
+
+            <div className="relative grid gap-6 p-6 sm:p-8 lg:grid-cols-[220px_1fr]">
+              {/* boot console */}
+              <div className="space-y-4">
+                <HoloPanel title="SYSTEM BOOT">
+                  <div className="space-y-1.5 text-[11px]">
+                    {BOOT_SEQ.map((b, i) => {
+                      const active = visible && i < bootStep;
+                      const current = visible && i === bootStep && !bootDone;
+                      const ok = i === BOOT_SEQ.length - 1 && active;
+                      return (
+                        <div key={b.t} className={`flex items-center gap-2 transition-opacity ${active || current ? "opacity-100" : "opacity-25"}`}>
+                          {current ? (
+                            <motion.span animate={{ rotate: 360 }} transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+                              className="inline-block h-2.5 w-2.5 rounded-full border border-neon-cyan border-t-transparent" />
+                          ) : (
+                            <span className={ok ? "text-neon-lime" : "text-neon-cyan"}>{active ? "✓" : "·"}</span>
+                          )}
+                          <span className={ok ? "text-neon-lime" : "text-foreground/80"}>{b.t}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </HoloPanel>
+
+                {/* tab nav */}
+                <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
+                  {(["PROFILE", "SKILLS", "PROJECTS", "RESEARCH"] as TabKey[]).map((k) => {
+                    const sel = tab === k;
+                    return (
+                      <button
+                        key={k}
+                        onClick={() => setTab(k)}
+                        disabled={!bootDone}
+                        className={`group relative overflow-hidden rounded-md border px-3 py-2 text-left font-mono text-[11px] tracking-[0.2em] transition disabled:opacity-40 ${
+                          sel
+                            ? "border-neon-cyan/70 bg-neon-cyan/10 text-neon-cyan shadow-[0_0_20px_-5px_oklch(0.85_0.18_200/0.8)]"
+                            : "border-white/10 text-foreground/70 hover:border-neon-magenta/60 hover:text-neon-magenta"
+                        }`}
+                      >
+                        <span className="relative z-10">[ {k} ]</span>
+                        {sel && (
+                          <motion.span layoutId="tab-glow"
+                            className="absolute inset-0 bg-gradient-to-r from-neon-cyan/0 via-neon-cyan/15 to-neon-magenta/0" />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
-              )}
+              </div>
+
+              {/* main panel */}
+              <div className="space-y-4">
+                {!bootDone ? (
+                  <HoloPanel title="NEURAL UPLINK">
+                    <div className="space-y-3">
+                      <div className="text-[11px] text-muted-foreground">
+                        Establishing secure handshake with research substrate…
+                      </div>
+                      <div className="relative h-2 overflow-hidden rounded-full bg-white/5">
+                        <motion.div
+                          initial={{ width: "0%" }}
+                          animate={{ width: `${Math.min(100, (bootStep / BOOT_SEQ.length) * 100)}%` }}
+                          transition={{ duration: 0.5 }}
+                          className="h-full rounded-full bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-magenta shadow-[0_0_12px_oklch(0.85_0.18_200/0.8)]"
+                        />
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 pt-2">
+                        {Array.from({ length: 24 }).map((_, i) => (
+                          <motion.div key={i}
+                            initial={{ opacity: 0.15 }}
+                            animate={{ opacity: [0.15, 0.9, 0.15] }}
+                            transition={{ duration: 1.2, delay: i * 0.05, repeat: Infinity }}
+                            className="h-1 rounded-full bg-neon-cyan/70" />
+                        ))}
+                      </div>
+                    </div>
+                  </HoloPanel>
+                ) : (
+                  <TabContent tab={tab} visible={visible} />
+                )}
+
+                {/* final status strip */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: bootDone ? 1 : 0.3 }}
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-neon-lime/30 bg-neon-lime/[0.04] px-4 py-3 font-mono text-[11px] tracking-[0.2em]"
+                >
+                  <div className="flex items-center gap-2 text-neon-lime">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inset-0 animate-ping rounded-full bg-neon-lime opacity-75" />
+                      <span className="relative h-2 w-2 rounded-full bg-neon-lime" />
+                    </span>
+                    STATUS ▸ OPEN FOR INTERNSHIPS
+                  </div>
+                  <div className="flex items-center gap-2 text-foreground/90">
+                    <span>{greeting || "AI SYSTEM READY"}</span>
+                    <span className="inline-block h-3.5 w-1.5 animate-blink bg-neon-cyan shadow-[0_0_8px_oklch(0.85_0.18_200)]" />
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </motion.div>
