@@ -151,16 +151,18 @@
   position: relative;
   background-clip: padding-box;
   border: 1px solid transparent;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    margin: -1px;
+    border-radius: inherit;
+    background: var(--gradient-border);
+  }
 }
-@utility neon-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  margin: -1px;
-  border-radius: inherit;
-  background: var(--gradient-border);
-}
+
 
 @utility grid-bg {
   background-image:
