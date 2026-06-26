@@ -7,14 +7,15 @@ import {
   Send, Rocket, BookOpen, Building2, FileText, ExternalLink, X,
   Target, ListChecks, Boxes, Workflow, AlertTriangle, TrendingUp,
 } from "lucide-react";
-import avatarAsset from "@/assets/akshaya.jpg.asset.json";
-import avatarAsset2 from "@/assets/akshaya2.jpg.asset.json";
+import avatarUrl from "@/assets/akshaya.jpg";
+import avatar2Url from "@/assets/akshaya2.jpg";
 import {
   ParticleNetwork, BootLoader, TerminalSection, ResearchInterests, TechOrbit,
   LiveProjects, ResearchTimeline, Publications, CurrentlyLearning, AIAssistant,
 } from "@/components/portfolio-extras";
 
-const AVATAR = avatarAsset.url;
+const AVATAR = avatarUrl;
+const AVATAR2 = avatar2Url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
