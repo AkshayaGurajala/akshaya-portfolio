@@ -916,9 +916,11 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
           <Section icon={ImageIcon} title="Screenshots">
             <div className="grid gap-3 sm:grid-cols-3">
               {cs.screenshots.map((s) => (
-                <div key={s.label} className={`relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${s.gradient}`}>
-                  <div className="absolute inset-0 grid-bg opacity-40" />
-                  <div className="absolute inset-x-0 bottom-0 p-2 font-mono text-[10px] text-foreground/80">{s.label}</div>
+                <div key={s.label} className={`group relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${s.gradient}`}>
+                  <img src={s.img} alt={s.label} loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-2 font-mono text-[10px] text-foreground/90">{s.label}</div>
                 </div>
               ))}
             </div>
