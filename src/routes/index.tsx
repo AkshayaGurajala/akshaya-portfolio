@@ -8,6 +8,10 @@ import {
 } from "lucide-react";
 import avatarAsset from "@/assets/akshaya.jpg.asset.json";
 import avatarAsset2 from "@/assets/akshaya2.jpg.asset.json";
+import {
+  ParticleNetwork, BootLoader, TerminalSection, ResearchInterests, TechOrbit,
+  LiveProjects, ResearchTimeline, Publications, CurrentlyLearning, AIAssistant,
+} from "@/components/portfolio-extras";
 
 const AVATAR = avatarAsset.url;
 
@@ -870,27 +874,36 @@ function Footer() {
 /* ---------------- Page ---------------- */
 function Portfolio() {
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setLoaded(true), 1100); return () => clearTimeout(t); }, []);
+  useEffect(() => { const t = setTimeout(() => setLoaded(true), 2600); return () => clearTimeout(t); }, []);
   const { scrollYProgress } = useScroll();
   const progressX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   return (
     <div className="relative min-h-screen md:cursor-none">
-      <Loader done={loaded} />
+      <BootLoader done={loaded} />
+      <ParticleNetwork />
       <DotCursor />
       <CursorGlow />
       <motion.div style={{ width: progressX }}
         className="fixed left-0 top-0 z-[60] h-0.5 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-violet" />
       <Navbar />
-      <main className="relative">
+      <main className="relative z-[1]">
         <Hero />
+        <TerminalSection />
         <About />
+        <TechOrbit avatarUrl={avatarAsset2.url} />
+        <ResearchInterests />
         <Education />
+        <ResearchTimeline />
         <Skills />
         <Projects />
+        <LiveProjects />
+        <Publications />
+        <CurrentlyLearning />
         <Certifications />
         <Contact />
       </main>
       <Footer />
+      <AIAssistant />
     </div>
   );
 }
