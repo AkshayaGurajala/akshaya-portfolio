@@ -301,22 +301,20 @@ export function TechOrbit({ avatarUrl }: { avatarUrl: string }) {
 /* ---------------- Live Projects (compact deck) ---------------- */
 const LIVE = [
   {
-    t: "DevError Decoder", tag: "AI · NLP",
-    d: "AI debugging assistant that explains Python/Java/C errors with Ollama-powered corrections.",
-    stack: ["Python", "Flask", "Ollama", "LLMs"],
-    icon: Code2, gradient: "from-neon-cyan/30 to-neon-magenta/20",
-  },
-  {
     t: "MnemoSphere", tag: "LLM · Knowledge",
     d: "AI knowledge platform: stores web resources, summarizes, extracts keywords, semantic Q&A.",
     stack: ["Python", "SQLite", "Groq", "BS4"],
     icon: Brain, gradient: "from-neon-magenta/30 to-neon-violet/20",
+    live: "https://mnemosphere.onrender.com",
+    repo: "https://github.com/akshayagurajala",
   },
   {
     t: "ASH Self Drive Cars", tag: "Full Stack",
     d: "Production car-rental platform with auth, bookings, and a polished responsive UI.",
     stack: ["React", "TS", "Supabase", "Vercel"],
     icon: Car, gradient: "from-neon-violet/30 to-neon-cyan/20",
+    live: "https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/",
+    repo: "https://github.com/akshayagurajala",
   },
 ];
 export function LiveProjects() {
