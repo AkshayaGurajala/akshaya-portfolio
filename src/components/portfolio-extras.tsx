@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Eye, Box, Brain, Cpu, Car, Zap, FileText, BookOpen, Github, ExternalLink,
-  MessageSquare, X, Send, Sparkles, Code2, Wrench,
+  MessageSquare, X, Send, Sparkles, Wrench,
 } from "lucide-react";
 
 /* ---------------- Particle Network Background ---------------- */
