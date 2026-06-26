@@ -131,14 +131,17 @@ export function BootLoader({ done }: { done: boolean }) {
 const TERM = [
   { cmd: "whoami", out: "Akshaya Gurajala" },
   { cmd: "role", out: "AI Research Intern" },
-  { cmd: "focus", out: "Computer Vision, Deep Learning, AI Systems" },
-  { cmd: "current_research", out: "Vision Transformers and Autonomous Perception" },
-  { cmd: "location", out: "Andhra Pradesh, India" },
+  { cmd: "education", out: "B.Tech Computer Science Engineering" },
+  { cmd: "specialization", out: "Artificial Intelligence and Machine Learning" },
+  { cmd: "current_focus", out: "Computer Vision and Deep Learning" },
+  { cmd: "technologies", out: "Python, PyTorch, OpenCV, Flask, React" },
+  { cmd: "research", out: "Vision Transformers and Autonomous Perception" },
+  { cmd: "status", out: "Available for opportunities" },
 ];
-function useTyped(text: string, start: boolean, speed = 22) {
+function useTyped(text: string, start: boolean, speed = 18) {
   const [t, setT] = useState("");
   useEffect(() => {
-    if (!start) return;
+    if (!start) { setT(""); return; }
     setT(""); let i = 0;
     const id = setInterval(() => {
       i++; setT(text.slice(0, i));
@@ -148,24 +151,37 @@ function useTyped(text: string, start: boolean, speed = 22) {
   }, [text, start, speed]);
   return t;
 }
-function TermLine({ cmd, out, idx, active, onDone }: { cmd: string; out: string; idx: number; active: boolean; onDone: () => void }) {
-  const c = useTyped(cmd, active);
+function TermLine({ cmd, out, active, onDone }: { cmd: string; out: string; active: boolean; onDone: () => void }) {
+  const c = useTyped(cmd, active, 32);
   const showOut = c === cmd;
-  const o = useTyped(out, showOut, 14);
-  useEffect(() => { if (showOut && o === out) { const t = setTimeout(onDone, 350); return () => clearTimeout(t); } }, [showOut, o, out, onDone]);
+  const o = useTyped(out, showOut, 12);
+  useEffect(() => {
+    if (showOut && o === out) {
+      const t = setTimeout(onDone, 480);
+      return () => clearTimeout(t);
+    }
+  }, [showOut, o, out, onDone]);
   return (
-    <div className="mb-3">
-      <div className="flex items-center gap-2 font-mono text-sm">
+    <div className="mb-4">
+      <div className="flex items-center gap-2 font-mono text-[13px] sm:text-sm">
         <span className="text-neon-lime">akshaya@ai-lab</span>
         <span className="text-muted-foreground">:</span>
         <span className="text-neon-cyan">~/portfolio</span>
-        <span className="text-muted-foreground">$</span>
-        <span className="text-foreground">{c}{active && c.length < cmd.length && <span className="ml-0.5 inline-block h-3 w-1.5 animate-blink bg-neon-cyan align-middle" />}</span>
+        <span className="text-neon-magenta">$</span>
+        <span className="text-foreground">{c}</span>
+        {active && c.length < cmd.length && (
+          <span className="inline-block h-4 w-2 animate-blink bg-neon-cyan align-middle shadow-[0_0_8px_oklch(0.85_0.18_200)]" />
+        )}
       </div>
       {showOut && (
-        <div className="ml-4 mt-1 pl-3 border-l border-neon-magenta/40 font-mono text-sm text-muted-foreground">
-          <span className="text-foreground">{o}</span>
-          {o.length < out.length && <span className="ml-0.5 inline-block h-3 w-1.5 animate-blink bg-neon-magenta align-middle" />}
+        <div className="ml-3 mt-1.5 flex gap-3 border-l-2 border-neon-magenta/50 pl-4 font-mono text-[13px] sm:text-sm">
+          <span className="text-neon-magenta">→</span>
+          <span className="text-foreground/90">
+            {o}
+            {o.length < out.length && (
+              <span className="ml-0.5 inline-block h-3 w-1.5 animate-blink bg-neon-magenta align-middle" />
+            )}
+          </span>
         </div>
       )}
     </div>
@@ -173,38 +189,79 @@ function TermLine({ cmd, out, idx, active, onDone }: { cmd: string; out: string;
 }
 export function TerminalSection() {
   const [i, setI] = useState(0);
+  const [done, setDone] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [start, setStart] = useState(false);
   useEffect(() => {
     const el = ref.current; if (!el) return;
-    const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { setStart(true); o.disconnect(); } }));
+    const o = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { setStart(true); o.disconnect(); }
+    }), { threshold: 0.25 });
     o.observe(el); return () => o.disconnect();
   }, []);
   return (
     <section id="terminal" className="relative py-24" ref={ref}>
       <div className="mx-auto max-w-4xl px-6">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="overflow-hidden rounded-3xl glass-strong shadow-[var(--shadow-elevated)]">
-          <div className="flex items-center justify-between border-b border-border/60 bg-white/[0.03] px-5 py-3">
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-red-500/80" />
-              <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-              <span className="h-3 w-3 rounded-full bg-green-500/80" />
-            </div>
-            <div className="font-mono text-xs text-muted-foreground">~ akshaya@ai-lab — zsh</div>
-            <div className="font-mono text-[10px] text-neon-cyan">● live</div>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="mx-auto mb-10 max-w-2xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            <span className="h-1 w-1 rounded-full bg-neon-lime animate-pulse" /> live shell
           </div>
-          <div className="p-6 sm:p-8 min-h-[360px]">
-            {start && TERM.slice(0, i + 1).map((t, k) => (
-              <TermLine key={t.cmd} cmd={t.cmd} out={t.out} idx={k} active={k === i}
-                onDone={() => k === i && i < TERM.length - 1 && setI(i + 1)} />
-            ))}
+          <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl">$ <span className="text-gradient">whoami</span></h2>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="relative overflow-hidden rounded-2xl glass-strong shadow-[var(--shadow-elevated)]">
+          {/* soft outer glow */}
+          <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-neon-cyan/30 via-neon-magenta/20 to-neon-violet/30 opacity-40 blur-xl" />
+          <div className="relative">
+            {/* titlebar */}
+            <div className="flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent px-4 py-2.5 backdrop-blur">
+              <div className="flex items-center gap-1.5">
+                <span className="h-3 w-3 rounded-full bg-[#ff5f57] shadow-[0_0_8px_#ff5f57aa]" />
+                <span className="h-3 w-3 rounded-full bg-[#febc2e] shadow-[0_0_8px_#febc2eaa]" />
+                <span className="h-3 w-3 rounded-full bg-[#28c840] shadow-[0_0_8px_#28c840aa]" />
+              </div>
+              <div className="font-mono text-[11px] text-muted-foreground">akshaya@ai-lab — zsh — 96×30</div>
+              <div className="flex items-center gap-1.5 font-mono text-[10px] text-neon-lime">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-neon-lime opacity-75" />
+                  <span className="relative h-2 w-2 rounded-full bg-neon-lime" />
+                </span>
+                live
+              </div>
+            </div>
+            {/* body */}
+            <div className="relative p-5 sm:p-7 min-h-[420px] bg-[radial-gradient(ellipse_at_top_left,oklch(0.18_0.08_290/0.4),transparent_70%)]">
+              <div className="mb-4 font-mono text-[11px] text-muted-foreground">
+                Last login: Fri Jun 26 2026 · zsh 5.9 · neural runtime ready
+              </div>
+              {start && TERM.slice(0, i + 1).map((t, k) => (
+                <TermLine key={t.cmd} cmd={t.cmd} out={t.out} active={k === i}
+                  onDone={() => {
+                    if (k === i) {
+                      if (i < TERM.length - 1) setI(i + 1);
+                      else setDone(true);
+                    }
+                  }} />
+              ))}
+              {done && (
+                <div className="mt-2 flex items-center gap-2 font-mono text-[13px] sm:text-sm">
+                  <span className="text-neon-lime">akshaya@ai-lab</span>
+                  <span className="text-muted-foreground">:</span>
+                  <span className="text-neon-cyan">~/portfolio</span>
+                  <span className="text-neon-magenta">$</span>
+                  <span className="inline-block h-4 w-2 animate-blink bg-neon-cyan shadow-[0_0_8px_oklch(0.85_0.18_200)]" />
+                </div>
+              )}
+            </div>
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- Research Interests ---------------- */
 const INTERESTS = [
