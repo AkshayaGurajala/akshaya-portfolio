@@ -630,11 +630,6 @@ const PROJECTS: Project[] = [
         "Keeping LLM prompts cost-efficient at scale",
         "Designing relevance ranking that mixes recency, tags, and semantic score",
       ],
-      screenshots: [
-        { label: "Dashboard", gradient: "from-neon-magenta/40 to-neon-cyan/20", img: "https://image.thum.io/get/width/900/crop/700/noanimate/https://mnemosphere.onrender.com" },
-        { label: "Semantic Search", gradient: "from-neon-violet/40 to-neon-magenta/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/MnemoSphere" },
-        { label: "Q&A Chat", gradient: "from-neon-cyan/40 to-neon-lime/20", img: "https://image.thum.io/get/width/900/crop/700/wait/2/noanimate/https://mnemosphere.onrender.com" },
-      ],
       future: [
         "Vector database (pgvector / Pinecone) for true embedding search",
         "Browser extension for one-click capture",
@@ -673,11 +668,6 @@ const PROJECTS: Project[] = [
         "Designing RLS policies that stay permissive enough for admins",
         "Optimizing image-heavy listings for mobile performance",
       ],
-      screenshots: [
-        { label: "Landing", gradient: "from-neon-violet/40 to-neon-cyan/20", img: "https://image.thum.io/get/width/900/crop/700/noanimate/https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/" },
-        { label: "Fleet", gradient: "from-neon-cyan/40 to-neon-violet/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/ASH-Self-Drive-Cars" },
-        { label: "Booking Flow", gradient: "from-neon-magenta/40 to-neon-violet/20", img: "https://image.thum.io/get/width/900/crop/700/wait/3/noanimate/https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/" },
-      ],
       future: [
         "Razorpay / Stripe integration for online payments",
         "Admin dashboard for fleet and booking management",
@@ -715,11 +705,6 @@ const PROJECTS: Project[] = [
         "Balancing predicted grade vs. student interest signals",
         "Avoiding feedback loops that keep recommending popular courses",
       ],
-      screenshots: [
-        { label: "Repository", gradient: "from-neon-cyan/40 to-neon-lime/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/Elective-Course-Recommendation-System" },
-        { label: "Profile", gradient: "from-neon-lime/40 to-neon-cyan/20", img: "https://opengraph.githubassets.com/1/akshayagurajala" },
-        { label: "Model Insights", gradient: "from-neon-cyan/40 to-neon-magenta/20", img: "https://opengraph.githubassets.com/2/akshayagurajala/Elective-Course-Recommendation-System" },
-      ],
       future: [
         "Graph neural network over course-prerequisite graph",
         "Integration with university SIS for live data",
@@ -756,11 +741,6 @@ const PROJECTS: Project[] = [
         "Reliable classification across three very different languages",
         "Keeping LLM responses grounded and non-hallucinated",
         "Running performant inference locally on modest hardware",
-      ],
-      screenshots: [
-        { label: "Repository", gradient: "from-neon-lime/40 to-neon-cyan/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/DevError-Decoder" },
-        { label: "Profile", gradient: "from-neon-cyan/40 to-neon-lime/20", img: "https://opengraph.githubassets.com/1/akshayagurajala" },
-        { label: "Source", gradient: "from-neon-magenta/40 to-neon-lime/20", img: "https://opengraph.githubassets.com/2/akshayagurajala/DevError-Decoder" },
       ],
       future: [
         "IDE plugins for VS Code and JetBrains",
@@ -911,18 +891,6 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
                 </li>
               ))}
             </ul>
-          </Section>
-          <Section icon={ImageIcon} title="Screenshots">
-            <div className="grid gap-3 sm:grid-cols-3">
-              {cs.screenshots.map((s) => (
-                <div key={s.label} className={`group relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${s.gradient}`}>
-                  <img src={s.img} alt={s.label} loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-2 font-mono text-[10px] text-foreground/90">{s.label}</div>
-                </div>
-              ))}
-            </div>
           </Section>
           <Section icon={TrendingUp} title="Future Improvements">
             <ul className="space-y-2">
