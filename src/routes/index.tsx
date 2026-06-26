@@ -4,7 +4,8 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePres
 import {
   Code2, Brain, Cpu, Wrench, Sparkles, Github, Linkedin, Mail, MapPin, Phone,
   Award, GraduationCap, Trophy, ArrowUpRight, Database, Eye, Layers,
-  Send, Rocket, BookOpen, Building2, FileText,
+  Send, Rocket, BookOpen, Building2, FileText, ExternalLink, X,
+  Target, ListChecks, Boxes, Workflow, AlertTriangle, ImageIcon, TrendingUp,
 } from "lucide-react";
 import avatarAsset from "@/assets/akshaya.jpg.asset.json";
 import avatarAsset2 from "@/assets/akshaya2.jpg.asset.json";
@@ -576,28 +577,156 @@ function Skills() {
   );
 }
 
-/* ---------------- Projects ---------------- */
-const PROJECTS = [
+type CaseStudy = {
+  overview: string;
+  problem: string;
+  features: string[];
+  tech: string[];
+  architecture: string[];
+  challenges: string[];
+  screenshots: { label: string; gradient: string }[];
+  future: string[];
+};
+type Project = {
+  title: string;
+  tag: string;
+  desc: string;
+  stack: string[];
+  icon: typeof Brain;
+  gradient: string;
+  accent: string;
+  live?: string;
+  repo: string;
+  caseStudy: CaseStudy;
+};
+const PROJECTS: Project[] = [
+  {
+    title: "MnemoSphere",
+    tag: "AI Memory Assistant",
+    desc: "AI-powered knowledge platform with intelligent web resource storage, automated summarization, keyword extraction, semantic search, and Q&A assistance.",
+    stack: ["Python", "Flask", "SQLite", "Groq API", "BeautifulSoup"],
+    icon: Layers, gradient: "from-neon-magenta/40 via-pink-500/20 to-transparent", accent: "text-neon-magenta",
+    live: "https://mnemosphere.onrender.com",
+    repo: "https://github.com/akshayagurajala",
+    caseStudy: {
+      overview: "MnemoSphere is an AI memory assistant that lets users save any web resource and instantly turns it into searchable, summarized, conversational knowledge — like a second brain trained on what you read.",
+      problem: "Researchers and students bookmark hundreds of links they never revisit. Information stays trapped in tabs, PDFs, and notes with no semantic recall or unified Q&A surface.",
+      features: [
+        "One-click URL ingestion with automatic content extraction",
+        "LLM-powered summarization and keyword extraction",
+        "Semantic search across the entire knowledge base",
+        "Conversational Q&A over saved resources",
+        "Tagging, filtering, and personal collections",
+      ],
+      tech: ["Python", "Flask", "SQLite", "Groq API", "BeautifulSoup", "HTML/CSS/JS"],
+      architecture: [
+        "Flask backend exposes ingestion, search, and chat endpoints",
+        "BeautifulSoup scrapes and cleans HTML content",
+        "Groq-hosted LLM generates summaries, keywords, and answers",
+        "SQLite stores resources, embeddings metadata, and chat history",
+        "Lightweight vanilla frontend for low-friction interaction",
+      ],
+      challenges: [
+        "Handling noisy HTML and paywalled content gracefully",
+        "Keeping LLM prompts cost-efficient at scale",
+        "Designing relevance ranking that mixes recency, tags, and semantic score",
+      ],
+      screenshots: [
+        { label: "Dashboard", gradient: "from-neon-magenta/40 to-neon-cyan/20" },
+        { label: "Semantic Search", gradient: "from-neon-violet/40 to-neon-magenta/20" },
+        { label: "Q&A Chat", gradient: "from-neon-cyan/40 to-neon-lime/20" },
+      ],
+      future: [
+        "Vector database (pgvector / Pinecone) for true embedding search",
+        "Browser extension for one-click capture",
+        "Multi-user workspaces and shared knowledge graphs",
+      ],
+    },
+  },
+  {
+    title: "ASH Self Drive Cars",
+    tag: "Car Rental Platform",
+    desc: "End-to-end car rental platform with vehicle listings, authentication, booking workflows, and responsive design — built with modern web tooling and shipped to production.",
+    stack: ["React", "TypeScript", "Supabase", "Tailwind", "Vite", "Vercel"],
+    icon: Database, gradient: "from-neon-violet/40 via-purple-500/20 to-transparent", accent: "text-neon-violet",
+    live: "https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/",
+    repo: "https://github.com/akshayagurajala",
+    caseStudy: {
+      overview: "ASH Self Drive Cars is a production-ready self-drive car rental platform with vehicle browsing, secure auth, booking workflows, and a polished responsive UI — designed for real customers, not a demo.",
+      problem: "Local self-drive rental businesses run on phone calls and spreadsheets. They needed an online storefront with real-time availability, transparent pricing, and a frictionless booking experience.",
+      features: [
+        "Vehicle catalog with images, specs, and pricing",
+        "Email + password authentication with secure sessions",
+        "Date-based booking flow with availability checks",
+        "Customer dashboard for managing bookings",
+        "Fully responsive mobile-first UI",
+      ],
+      tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "Vercel"],
+      architecture: [
+        "React + Vite SPA deployed on Vercel edge",
+        "Supabase Postgres backs vehicles, users, and bookings",
+        "Row-level security enforces per-user booking access",
+        "Supabase Auth handles sign-up, login, and session refresh",
+        "Tailwind design system keeps the UI consistent end-to-end",
+      ],
+      challenges: [
+        "Preventing double-bookings with concurrent date overlaps",
+        "Designing RLS policies that stay permissive enough for admins",
+        "Optimizing image-heavy listings for mobile performance",
+      ],
+      screenshots: [
+        { label: "Landing", gradient: "from-neon-violet/40 to-neon-cyan/20" },
+        { label: "Fleet", gradient: "from-neon-cyan/40 to-neon-violet/20" },
+        { label: "Booking Flow", gradient: "from-neon-magenta/40 to-neon-violet/20" },
+      ],
+      future: [
+        "Razorpay / Stripe integration for online payments",
+        "Admin dashboard for fleet and booking management",
+        "Driver verification with document upload + OCR",
+      ],
+    },
+  },
   {
     title: "Elective Course Recommendation System",
     tag: "AI · ML · Python",
     desc: "ML-powered recommender built at NIT Warangal that suggests electives from multi-semester academic data using Random Forest classification and cosine similarity.",
     stack: ["Python", "Flask", "Scikit-learn", "Pandas", "Random Forest"],
     icon: Brain, gradient: "from-neon-cyan/40 via-sky-500/20 to-transparent", accent: "text-neon-cyan",
-  },
-  {
-    title: "MnemoSphere",
-    tag: "AI · LLM · Knowledge",
-    desc: "AI-powered knowledge platform with intelligent web resource storage, automated summarization, keyword extraction, semantic search, and Q&A assistance.",
-    stack: ["Python", "Flask", "SQLite", "Groq API", "BeautifulSoup"],
-    icon: Layers, gradient: "from-neon-magenta/40 via-pink-500/20 to-transparent", accent: "text-neon-magenta",
-  },
-  {
-    title: "ASH Self Drive Cars",
-    tag: "Full Stack",
-    desc: "End-to-end car rental platform with vehicle listings, authentication, booking workflows, and responsive design — built with modern web tooling and shipped to production.",
-    stack: ["React", "TypeScript", "Supabase", "Tailwind", "Vite", "Vercel"],
-    icon: Database, gradient: "from-neon-violet/40 via-purple-500/20 to-transparent", accent: "text-neon-violet",
+    repo: "https://github.com/akshayagurajala",
+    caseStudy: {
+      overview: "A hybrid recommender developed during a summer research internship at NIT Warangal that suggests the best-fit electives to undergraduate students using their academic history.",
+      problem: "Students pick electives blindly based on rumors or peer pressure, often misaligned with their strengths and interests, leading to lower GPAs and disengagement.",
+      features: [
+        "Per-student elective ranking from multi-semester grades",
+        "Random Forest classifier for performance prediction",
+        "Cosine similarity over student profile vectors",
+        "Explainable recommendations with feature importance",
+        "Lightweight Flask UI for academic advisors",
+      ],
+      tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "Flask"],
+      architecture: [
+        "Pandas pipeline cleans and normalizes semester-wise grades",
+        "Feature engineering builds per-student interest vectors",
+        "Random Forest predicts likely grade per elective",
+        "Cosine similarity finds peer cohorts and re-ranks",
+        "Flask web app exposes recommendations to advisors",
+      ],
+      challenges: [
+        "Sparse data for newer electives with few past takers",
+        "Balancing predicted grade vs. student interest signals",
+        "Avoiding feedback loops that keep recommending popular courses",
+      ],
+      screenshots: [
+        { label: "Input Form", gradient: "from-neon-cyan/40 to-neon-lime/20" },
+        { label: "Recommendations", gradient: "from-neon-lime/40 to-neon-cyan/20" },
+        { label: "Model Insights", gradient: "from-neon-cyan/40 to-neon-magenta/20" },
+      ],
+      future: [
+        "Graph neural network over course-prerequisite graph",
+        "Integration with university SIS for live data",
+        "Career-path-aware recommendations",
+      ],
+    },
   },
   {
     title: "DevError Decoder",
@@ -605,9 +734,208 @@ const PROJECTS = [
     desc: "AI-powered debugging assistant that analyzes Python, Java, and C errors and generates simplified explanations with corrective suggestions — backed by a published research paper.",
     stack: ["Python", "Flask", "Ollama", "NLP", "LLMs"],
     icon: Code2, gradient: "from-neon-lime/30 via-emerald-500/20 to-transparent", accent: "text-neon-lime",
+    repo: "https://github.com/akshayagurajala",
+    caseStudy: {
+      overview: "DevError Decoder is a multi-language debugging assistant that combines a rule-based error analyzer with a local LLM to turn cryptic stack traces into human explanations and concrete fixes.",
+      problem: "Beginner and intermediate developers waste hours decoding compiler/runtime errors. Documentation is scattered across languages and Stack Overflow answers are often outdated.",
+      features: [
+        "Multi-language support: Python, Java, and C",
+        "Rule-based pattern matcher for known error families",
+        "Ollama-powered local LLM for natural-language explanations",
+        "Suggested corrective code snippets",
+        "Privacy-first — runs locally, no code leaves the machine",
+      ],
+      tech: ["Python", "Flask", "Ollama", "Regex/NLP", "LLMs"],
+      architecture: [
+        "Flask API receives error text + language tag",
+        "Rule-based engine classifies the error family",
+        "Ollama LLM generates explanation + fix candidates",
+        "Post-processor formats response with code highlights",
+        "Web UI lets developers paste a trace and get answers",
+      ],
+      challenges: [
+        "Reliable classification across three very different languages",
+        "Keeping LLM responses grounded and non-hallucinated",
+        "Running performant inference locally on modest hardware",
+      ],
+      screenshots: [
+        { label: "Paste Trace", gradient: "from-neon-lime/40 to-neon-cyan/20" },
+        { label: "Explanation", gradient: "from-neon-cyan/40 to-neon-lime/20" },
+        { label: "Suggested Fix", gradient: "from-neon-magenta/40 to-neon-lime/20" },
+      ],
+      future: [
+        "IDE plugins for VS Code and JetBrains",
+        "Fine-tuned model on curated error/fix pairs",
+        "Telemetry-free analytics for error trends",
+      ],
+    },
   },
 ];
-function ProjectCard({ p, i }: { p: typeof PROJECTS[number]; i: number }) {
+
+function GlowButton({
+  href, onClick, children, variant = "ghost", icon: Icon,
+}: {
+  href?: string; onClick?: () => void; children: React.ReactNode;
+  variant?: "primary" | "ghost" | "outline"; icon?: typeof Github;
+}) {
+  const base =
+    "group/btn relative inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 overflow-hidden";
+  const styles =
+    variant === "primary"
+      ? "bg-gradient-to-r from-neon-cyan to-neon-magenta text-background shadow-[0_0_24px_hsl(var(--neon-cyan)/0.45)] hover:shadow-[0_0_36px_hsl(var(--neon-magenta)/0.55)] hover:-translate-y-0.5"
+      : variant === "outline"
+      ? "glass border border-neon-cyan/40 text-foreground hover:border-neon-cyan hover:shadow-[0_0_24px_hsl(var(--neon-cyan)/0.35)] hover:-translate-y-0.5"
+      : "glass text-foreground hover:shadow-[0_0_24px_hsl(var(--neon-violet)/0.35)] hover:-translate-y-0.5";
+  const inner = (
+    <>
+      <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
+      {Icon ? <Icon className="h-3.5 w-3.5" /> : null}
+      <span className="relative">{children}</span>
+    </>
+  );
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${styles}`}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <button type="button" onClick={onClick} className={`${base} ${styles}`}>
+      {inner}
+    </button>
+  );
+}
+
+function CaseStudyModal({ project, onClose }: { project: Project; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+  }, [onClose]);
+  const Icon = project.icon;
+  const cs = project.caseStudy;
+  const Section = ({ icon: I, title, children }: { icon: typeof Target; title: string; children: React.ReactNode }) => (
+    <div className="rounded-2xl glass p-5 sm:p-6">
+      <div className="flex items-center gap-2">
+        <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-neon-cyan/30 to-neon-magenta/20">
+          <I className={`h-4 w-4 ${project.accent}`} />
+        </div>
+        <h4 className="font-display text-lg font-semibold">{title}</h4>
+      </div>
+      <div className="mt-3 text-sm text-muted-foreground">{children}</div>
+    </div>
+  );
+  return (
+    <motion.div
+      className="fixed inset-0 z-[80] grid place-items-center px-4 py-8"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+    >
+      <motion.div
+        className="absolute inset-0 bg-background/70 backdrop-blur-xl"
+        onClick={onClose}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      />
+      <motion.div
+        className="relative z-10 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-[2rem] glass-strong border border-white/10 shadow-[0_20px_80px_hsl(var(--neon-magenta)/0.25)]"
+        initial={{ opacity: 0, y: 40, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.98 }}
+        transition={{ type: "spring", damping: 22, stiffness: 220 }}
+      >
+        <div className={`relative overflow-hidden rounded-t-[2rem] bg-gradient-to-br ${project.gradient} p-8 sm:p-10`}>
+          <div className="absolute inset-0 grid-bg opacity-30" />
+          <button
+            onClick={onClose}
+            aria-label="Close case study"
+            className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full glass hover:shadow-[0_0_24px_hsl(var(--neon-magenta)/0.45)]"
+          >
+            <X className="h-4 w-4" />
+          </button>
+          <div className="relative flex items-start gap-4">
+            <div className="grid h-14 w-14 place-items-center rounded-2xl glass-strong shadow-[var(--shadow-neon)]">
+              <Icon className={`h-7 w-7 ${project.accent}`} />
+            </div>
+            <div>
+              <div className="font-mono text-xs text-muted-foreground">{project.tag}</div>
+              <h3 className="mt-1 font-display text-3xl font-bold sm:text-4xl">{project.title}</h3>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-5 p-6 sm:p-8">
+          <Section icon={Sparkles} title="Overview"><p>{cs.overview}</p></Section>
+          <Section icon={Target} title="Problem Statement"><p>{cs.problem}</p></Section>
+          <Section icon={ListChecks} title="Features">
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {cs.features.map((f) => (
+                <li key={f} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-neon-cyan" />{f}
+                </li>
+              ))}
+            </ul>
+          </Section>
+          <Section icon={Boxes} title="Technologies Used">
+            <div className="flex flex-wrap gap-2">
+              {cs.tech.map((t) => (
+                <span key={t} className="rounded-full border border-border/60 bg-white/[0.03] px-2.5 py-1 font-mono text-[11px]">{t}</span>
+              ))}
+            </div>
+          </Section>
+          <Section icon={Workflow} title="Architecture">
+            <ol className="space-y-2">
+              {cs.architecture.map((a, i) => (
+                <li key={a} className="flex gap-3">
+                  <span className={`font-mono text-xs ${project.accent}`}>0{i + 1}</span><span>{a}</span>
+                </li>
+              ))}
+            </ol>
+          </Section>
+          <Section icon={AlertTriangle} title="Challenges Faced">
+            <ul className="space-y-2">
+              {cs.challenges.map((c) => (
+                <li key={c} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-neon-magenta" />{c}
+                </li>
+              ))}
+            </ul>
+          </Section>
+          <Section icon={ImageIcon} title="Screenshots">
+            <div className="grid gap-3 sm:grid-cols-3">
+              {cs.screenshots.map((s) => (
+                <div key={s.label} className={`relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${s.gradient}`}>
+                  <div className="absolute inset-0 grid-bg opacity-40" />
+                  <div className="absolute inset-x-0 bottom-0 p-2 font-mono text-[10px] text-foreground/80">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </Section>
+          <Section icon={TrendingUp} title="Future Improvements">
+            <ul className="space-y-2">
+              {cs.future.map((f) => (
+                <li key={f} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-neon-lime" />{f}
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            {project.live && (
+              <GlowButton href={project.live} variant="primary" icon={ExternalLink}>Live Demo</GlowButton>
+            )}
+            <GlowButton href={project.repo} variant="outline" icon={Github}>Source Code</GlowButton>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function ProjectCard({ p, i, onOpen }: { p: Project; i: number; onOpen: () => void }) {
   const tilt = useTilt(10);
   const Icon = p.icon;
   const reverse = i % 2 === 1;
@@ -617,6 +945,8 @@ function ProjectCard({ p, i }: { p: typeof PROJECTS[number]; i: number }) {
       <motion.div ref={tilt.ref} onMouseMove={tilt.onMove} onMouseLeave={tilt.onLeave}
         style={{ rotateX: tilt.rx, rotateY: tilt.ry, transformStyle: "preserve-3d" }}
         className="group relative overflow-hidden rounded-[2rem] glass-strong">
+        <span className="pointer-events-none absolute inset-0 rounded-[2rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{ background: "conic-gradient(from 0deg, hsl(var(--neon-cyan)/0.5), hsl(var(--neon-magenta)/0.5), hsl(var(--neon-violet)/0.5), hsl(var(--neon-cyan)/0.5))", padding: 1, WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude" as any }} />
         <div className={`grid items-center gap-0 md:grid-cols-2 ${reverse ? "md:[&>*:first-child]:order-2" : ""}`}>
           <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:h-full">
             <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient}`} />
@@ -643,12 +973,11 @@ function ProjectCard({ p, i }: { p: typeof PROJECTS[number]; i: number }) {
               ))}
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#" className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-neon-cyan to-neon-magenta px-4 py-2 text-sm font-medium text-background">
-                Case study <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
-              <a href="https://github.com/" className="inline-flex items-center gap-1.5 rounded-full glass px-4 py-2 text-sm">
-                <Github className="h-3.5 w-3.5" /> Code
-              </a>
+              {p.live && (
+                <GlowButton href={p.live} variant="primary" icon={ExternalLink}>Live Demo</GlowButton>
+              )}
+              <GlowButton href={p.repo} variant="ghost" icon={Github}>Source Code</GlowButton>
+              <GlowButton onClick={onOpen} variant="outline" icon={ArrowUpRight}>Case Study</GlowButton>
             </div>
           </div>
         </div>
@@ -657,14 +986,18 @@ function ProjectCard({ p, i }: { p: typeof PROJECTS[number]; i: number }) {
   );
 }
 function Projects() {
+  const [active, setActive] = useState<Project | null>(null);
   return (
     <section id="projects" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHead kicker="Selected work" title="Projects in spotlight" desc="A glimpse of what I've been building — from ML pipelines to AI-powered apps." />
         <div className="space-y-10">
-          {PROJECTS.map((p, i) => <ProjectCard key={p.title} p={p} i={i} />)}
+          {PROJECTS.map((p, i) => <ProjectCard key={p.title} p={p} i={i} onOpen={() => setActive(p)} />)}
         </div>
       </div>
+      <AnimatePresence>
+        {active && <CaseStudyModal key={active.title} project={active} onClose={() => setActive(null)} />}
+      </AnimatePresence>
     </section>
   );
 }
