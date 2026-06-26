@@ -606,7 +606,7 @@ const PROJECTS: Project[] = [
     stack: ["Python", "Flask", "SQLite", "Groq API", "BeautifulSoup"],
     icon: Layers, gradient: "from-neon-magenta/40 via-pink-500/20 to-transparent", accent: "text-neon-magenta",
     live: "https://mnemosphere.onrender.com",
-    repo: "https://github.com/akshayagurajala",
+    repo: "https://github.com/AkshayaGurajala/MnemoSphere.git",
     caseStudy: {
       overview: "MnemoSphere is an AI memory assistant that lets users save any web resource and instantly turns it into searchable, summarized, conversational knowledge — like a second brain trained on what you read.",
       problem: "Researchers and students bookmark hundreds of links they never revisit. Information stays trapped in tabs, PDFs, and notes with no semantic recall or unified Q&A surface.",
@@ -644,7 +644,7 @@ const PROJECTS: Project[] = [
     stack: ["React", "TypeScript", "Supabase", "Tailwind", "Vite", "Vercel"],
     icon: Database, gradient: "from-neon-violet/40 via-purple-500/20 to-transparent", accent: "text-neon-violet",
     live: "https://ash-self-drive-cars-278kclab9-akshayagurajalas-projects.vercel.app/",
-    repo: "https://github.com/akshayagurajala",
+    repo: "https://github.com/AkshayaGurajala/ash-self-drive-cars.git",
     caseStudy: {
       overview: "ASH Self Drive Cars is a production-ready self-drive car rental platform with vehicle browsing, secure auth, booking workflows, and a polished responsive UI — designed for real customers, not a demo.",
       problem: "Local self-drive rental businesses run on phone calls and spreadsheets. They needed an online storefront with real-time availability, transparent pricing, and a frictionless booking experience.",
@@ -681,7 +681,7 @@ const PROJECTS: Project[] = [
     desc: "ML-powered recommender built at NIT Warangal that suggests electives from multi-semester academic data using Random Forest classification and cosine similarity.",
     stack: ["Python", "Flask", "Scikit-learn", "Pandas", "Random Forest"],
     icon: Brain, gradient: "from-neon-cyan/40 via-sky-500/20 to-transparent", accent: "text-neon-cyan",
-    repo: "https://github.com/akshayagurajala",
+    repo: "https://github.com/AkshayaGurajala/elective-course-recommendation.git",
     caseStudy: {
       overview: "A hybrid recommender developed during a summer research internship at NIT Warangal that suggests the best-fit electives to undergraduate students using their academic history.",
       problem: "Students pick electives blindly based on rumors or peer pressure, often misaligned with their strengths and interests, leading to lower GPAs and disengagement.",
@@ -718,7 +718,7 @@ const PROJECTS: Project[] = [
     desc: "AI-powered debugging assistant that analyzes Python, Java, and C errors and generates simplified explanations with corrective suggestions — backed by a published research paper.",
     stack: ["Python", "Flask", "Ollama", "NLP", "LLMs"],
     icon: Code2, gradient: "from-neon-lime/30 via-emerald-500/20 to-transparent", accent: "text-neon-lime",
-    repo: "https://github.com/akshayagurajala",
+    repo: "https://github.com/AkshayaGurajala/DevError-Decoder.git",
     caseStudy: {
       overview: "DevError Decoder is a multi-language debugging assistant that combines a rule-based error analyzer with a local LLM to turn cryptic stack traces into human explanations and concrete fixes.",
       problem: "Beginner and intermediate developers waste hours decoding compiler/runtime errors. Documentation is scattered across languages and Stack Overflow answers are often outdated.",
