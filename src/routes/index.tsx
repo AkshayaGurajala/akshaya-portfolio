@@ -632,9 +632,9 @@ const PROJECTS: Project[] = [
         "Designing relevance ranking that mixes recency, tags, and semantic score",
       ],
       screenshots: [
-        { label: "Dashboard", gradient: "from-neon-magenta/40 to-neon-cyan/20" },
-        { label: "Semantic Search", gradient: "from-neon-violet/40 to-neon-magenta/20" },
-        { label: "Q&A Chat", gradient: "from-neon-cyan/40 to-neon-lime/20" },
+        { label: "Dashboard", gradient: "from-neon-magenta/40 to-neon-cyan/20", img: "https://image.thum.io/get/width/900/crop/700/noanimate/https://mnemosphere.onrender.com" },
+        { label: "Semantic Search", gradient: "from-neon-violet/40 to-neon-magenta/20", img: "https://opengraph.githubassets.com/1/akshayagurajala/MnemoSphere" },
+        { label: "Q&A Chat", gradient: "from-neon-cyan/40 to-neon-lime/20", img: "https://image.thum.io/get/width/900/crop/700/wait/2/noanimate/https://mnemosphere.onrender.com" },
       ],
       future: [
         "Vector database (pgvector / Pinecone) for true embedding search",
