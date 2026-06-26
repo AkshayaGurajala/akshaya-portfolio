@@ -330,9 +330,13 @@ export function LiveProjects() {
           <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl">Live projects</h2>
           <p className="mt-3 text-muted-foreground">Shipped, running, and open to feedback.</p>
         </motion.div>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
           {LIVE.map((p, i) => {
             const I = p.icon;
+            const openExternal = (url: string) => (e: React.MouseEvent) => {
+              e.preventDefault();
+              window.open(url, "_blank", "noopener,noreferrer");
+            };
             return (
               <motion.article key={p.t} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
@@ -342,8 +346,11 @@ export function LiveProjects() {
                 <div className={`absolute -inset-px rounded-3xl bg-gradient-to-br ${p.gradient} opacity-0 blur transition-opacity duration-500 group-hover:opacity-100`} />
                 <div className="relative">
                   <div className={`relative aspect-[16/10] overflow-hidden rounded-2xl bg-gradient-to-br ${p.gradient}`}>
-                    <div className="absolute inset-0 grid-bg opacity-40" />
-                    <div className="absolute inset-0 grid place-items-center">
+                    <img src={`https://image.thum.io/get/width/900/crop/600/noanimate/${p.live}`} alt={p.t} loading="lazy" referrerPolicy="no-referrer"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
+                    <div className="absolute inset-0 grid place-items-center opacity-30 group-hover:opacity-0 transition-opacity">
                       <I className="h-14 w-14 text-foreground/80" />
                     </div>
                     <div className="absolute left-3 top-3 rounded-full glass px-2.5 py-0.5 font-mono text-[10px]">{p.tag}</div>
@@ -356,10 +363,12 @@ export function LiveProjects() {
                     ))}
                   </div>
                   <div className="mt-5 flex flex-wrap gap-2">
-                    <a href="#" className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-magenta px-3 py-1.5 text-xs font-medium text-background shadow-[var(--shadow-neon)]">
+                    <a href={p.live} target="_blank" rel="noopener noreferrer" onClick={openExternal(p.live)}
+                      className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-magenta px-3 py-1.5 text-xs font-medium text-background shadow-[var(--shadow-neon)] hover:scale-105 transition-transform">
                       <ExternalLink className="h-3 w-3" /> Live Demo
                     </a>
-                    <a href="https://github.com/" className="inline-flex items-center gap-1 rounded-full glass px-3 py-1.5 text-xs">
+                    <a href={p.repo} target="_blank" rel="noopener noreferrer" onClick={openExternal(p.repo)}
+                      className="inline-flex items-center gap-1 rounded-full glass px-3 py-1.5 text-xs hover:bg-white/10 transition-colors">
                       <Github className="h-3 w-3" /> Source
                     </a>
                   </div>
